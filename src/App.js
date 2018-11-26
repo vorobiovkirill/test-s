@@ -1,28 +1,45 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+
+import { Container, Header } from "semantic-ui-react";
+import React, { Component } from "react";
+
+import UserPagination from "./UserPagination";
+import UsersList from "./UsersList";
+import { connect } from "react-redux";
+import { request } from "./api";
+import { withRouter } from "react-router-dom";
 
 class App extends Component {
+  componentDidMount() {
+    this.props.loadUsers();
+  }
   render() {
+    console.log("users", this.props.users);
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Container text>
+        <Header as="h2">Swivl test</Header>
+        <UsersList users={this.props.users} />
+        <UserPagination updateRoute={this.props.updateRoute} />
+      </Container>
     );
   }
 }
 
-export default App;
+const mapStateToProps = ({ users }) => ({
+  users
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loadUsers: () => {
+      dispatch(request());
+    }
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);
