@@ -1,9 +1,13 @@
+import { combineReducers } from "redux";
+import { connectRouter } from "connected-react-router";
+
 const initialState = {
   users: [],
-  user: {}
+  user: {},
+  loading: true
 };
 
-const reducer = (state = initialState || {}, action) => {
+const usersReducer = (state = initialState || {}, action) => {
   switch (action.type) {
     case "FETCH_USERS":
       console.log("action", action);
@@ -13,11 +17,16 @@ const reducer = (state = initialState || {}, action) => {
     case "FETCH_USER":
       console.log("action", action);
       return {
-        user: action.res
+        user: action.res,
+        loading: false
       };
     default:
       return state;
   }
 };
 
-export default reducer;
+export default history =>
+  combineReducers({
+    router: connectRouter(history),
+    usersReducer
+  });

@@ -1,45 +1,23 @@
 import "./App.css";
 
-import { Container, Header } from "semantic-ui-react";
+// import { Container, Header } from "semantic-ui-react";
 import React, { Component } from "react";
+import { Route, Switch } from "react-router";
 
-import UserPagination from "./UserPagination";
-import UsersList from "./UsersList";
-import { connect } from "react-redux";
-import { request } from "./api";
-import { withRouter } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import User from "./User";
+// import UserPagination from "./UserPagination";
+import Users from "./Users";
 
-class App extends Component {
-  componentDidMount() {
-    this.props.loadUsers();
-  }
-  render() {
-    console.log("users", this.props.users);
-    return (
-      <Container text>
-        <Header as="h2">Swivl test</Header>
-        <UsersList users={this.props.users} />
-        <UserPagination updateRoute={this.props.updateRoute} />
-      </Container>
-    );
-  }
-}
-
-const mapStateToProps = ({ users }) => ({
-  users
-});
-
-const mapDispatchToProps = dispatch => {
-  return {
-    loadUsers: () => {
-      dispatch(request());
-    }
-  };
+const App = ({ history }) => {
+  return (
+    <ConnectedRouter history={history}>
+      <Switch>
+        <Route exact path="/" component={Users} />
+        <Route path={`/user/:userLogin`} component={User} />
+      </Switch>
+    </ConnectedRouter>
+  );
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
-);
+export default App;
