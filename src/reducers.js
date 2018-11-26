@@ -1,5 +1,6 @@
 const initialState = {
-  users: []
+  users: [],
+  user: {}
 };
 
 const reducer = (state = initialState || {}, action) => {
@@ -8,6 +9,11 @@ const reducer = (state = initialState || {}, action) => {
       console.log("action", action);
       return {
         users: action.res
+      };
+    case "FETCH_USER":
+      console.log("action", action);
+      return {
+        user: action.res
       };
     default:
       return state;
