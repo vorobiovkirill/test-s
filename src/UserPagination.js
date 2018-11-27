@@ -8,7 +8,6 @@ class UserPagination extends PureComponent {
   state = { activePage: 1 };
 
   handlePaginationChange = (e, { activePage }) => {
-    this.props.updateRoute(activePage);
     this.props.changePage(activePage);
     this.setState(() => ({ activePage }));
   };

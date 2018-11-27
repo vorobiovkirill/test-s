@@ -1,12 +1,10 @@
 import "./App.css";
 
-// import { Container, Header } from "semantic-ui-react";
-import React, { Component } from "react";
 import { Route, Switch } from "react-router";
 
 import { ConnectedRouter } from "connected-react-router";
+import React from "react";
 import User from "./User";
-// import UserPagination from "./UserPagination";
 import Users from "./Users";
 
 const App = ({ history }) => {

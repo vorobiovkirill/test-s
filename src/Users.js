@@ -2,8 +2,7 @@ import { Container, Header, Image, List } from "semantic-ui-react";
 import React, { Component, Fragment } from "react";
 
 import { Link } from "react-router-dom";
-import { Route } from "react-router";
-import User from "./User";
+import UserPagination from "./UserPagination";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { request } from "./api";
@@ -37,6 +36,7 @@ class Users extends Component {
               </List.Item>
             ))}
           </List>
+          <UserPagination />
         </Container>
       </Fragment>
     );
